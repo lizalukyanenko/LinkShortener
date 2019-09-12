@@ -5,9 +5,6 @@ const validUrl = require('valid-url');
 
 router.post('/', function(req, res, next) {
 	const longUrl = req.body.long_url;
-if (longUrl){
-	longUrl += longUrl;
-}
 	if (!longUrl || !validUrl.isUrl(longUrl)){
 		return res.send({
 			success: false,
