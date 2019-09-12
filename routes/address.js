@@ -5,7 +5,9 @@ const validUrl = require('valid-url');
 
 router.post('/', function(req, res, next) {
 	const longUrl = req.body.long_url;
-
+if (longUrl){
+	longUrl += longUrl;
+}
 	if (!longUrl || !validUrl.isUrl(longUrl)){
 		return res.send({
 			success: false,
@@ -14,7 +16,7 @@ router.post('/', function(req, res, next) {
 	} else {
 		
 		try{
-		 	const resultUrl =  shortener.shortener(longUrl);
+		 	const resultUrl = shortener.shortener(longUrl);
 			 return res.send({
 				success: true,
 				result: resultUrl,
