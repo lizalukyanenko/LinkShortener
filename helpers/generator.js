@@ -1,8 +1,8 @@
-const emodji = require('node-emoji');
+const emoji = require('node-emoji');
 const baseUrl = "https://I ❤️ 🍕.ws/";
 
 function r(){
-	return emodji.random().emodji;
+	return emoji.random().emoji;
 }
 
 module.exports = () => {

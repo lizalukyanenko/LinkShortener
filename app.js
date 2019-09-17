@@ -6,11 +6,9 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const MongoClient = require('mongodb').MongoClient;
+const hjs = require('hogan-express');
 
-const mongoClient = new MongoClient('mongodb://localhost:27017', {useNewUrlParser: true});
-
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017/LinkShortener');
 mongoose.promise = global.Promise;
 fs.readdirSync(path.join(__dirname, '/models')).forEach((
 	filename) => {
@@ -24,7 +22,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', hjs);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -48,7 +46,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{
+    message: err.message,
+    status: err.status,
+  });
 });
 
 module.exports = app;
