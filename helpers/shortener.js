@@ -9,20 +9,22 @@ async function shortener(address) {
 			original_url: address,
 			short_url: shortUrl,
 		});
+		return dbAddress.short_url;
 	}
-	return dbAddress.short_url;	
+	return dbAddress.short_url;
 }
 
 async function getShortUrl(){
 	const shortUrl = generator();
 	const longAddress = await db.findLongAddress(shortUrl);
-	if (longAddress){
-		return await getShortUrl(shortUrl);
-	} else {
-		return shortUrl;
-	}
+
+	if (longAddress) {
+	    return await getShortUrl(shortUrl)
+    } else {
+	    return shortUrl;
+    }
 }
 
 module.exports = {
-	shortener,
+	shortener
 };
