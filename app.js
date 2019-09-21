@@ -21,8 +21,8 @@ const address = require('./routes/address');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', hjs);
+app.engine('hjs', hjs);
+app.set('view engine', 'hjs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
