@@ -4,7 +4,7 @@ const db = require('../helpers/db')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  return res.render('index', { title: 'Express' });
+  return res.render('index');
 });
 
 /* GET to long url */

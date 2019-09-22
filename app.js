@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const hjs = require('hogan-express');
+const i18n = require("i18n-express")
 
 mongoose.connect('mongodb://localhost:27017/LinkShortener');
 mongoose.promise = global.Promise;
@@ -29,6 +30,12 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(i18n({
+  translationsPath: path.join(__dirname, 'i18n'),
+  siteLangs: ['en', 'ru'],
+  textsVarName: 'texts',
+}));
 
 app.use('/', index);
 app.use('/address', address);

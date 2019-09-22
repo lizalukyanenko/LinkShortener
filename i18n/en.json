@@ -1,0 +1,9 @@
+{
+    "title": "Shortener",
+    "subtitle": "Link Shortener",
+    "ready": "You link is ready",
+    "shorten_another_button": "Shorten another link",
+    "shortener_button": "Shorten",
+    "placeholder": "URL to shorten",
+    "copy": "Copy to clipboard"
+}

@@ -14,21 +14,22 @@
 
         <script src="/javascripts/index.js"></script>
 
-        <title>Link Shortener</title>
+        <title>{{texts.title}}</title>
     </head>
     
     <body>
+        
         <div class="container text-center">
             <div class="page-header">
-                <h1>Shorty</h1>
+                <h1>{{texts.subtitle}}</h1>
                 <h3>I ❤️ 🍕</h3>
             </div>
 
             <div id="shortener_output" class="d-none">
-                <h3>Сслыка готова</h3>
+                <h3>{{texts.ready}}</h3>
                 <h2 class="form-control-static" id="result_url">https://I ❤️ 🍕.ws/</h2>
-                <button type="button" class="btn btn-primary" id="copy_button" class="d-none">Скопировать</button>
-                <button type="button" class="btn btn-success block-button" id="reset_button">Укоротить ссылку</button>
+                <button type="button" class="btn btn-primary block-button" id="copy_button" class="d-none">{{texts.copy}}</button>
+                <button type="button" class="btn btn-success block-button" id="reset_button">{{texts.shorten_another_button}}</button>
             </div>
 
             <div class="col-sm-2">
@@ -36,9 +37,9 @@
             
             <div class="col-sm-8">
                 <div class="form-group" id="shortener_input">
-                    <label class="control-label d-none" form="long_url" id="long_url_error"></label>
-                    <input type="text" class="form-control" id="long_url" placeholder="Добавте ссылку"><br>
-                    <button type="submit" class="btn btn-primary" id="shortener_button">Укоротить</button>
+                    <label class="control-label d-none" for="long_url" id="long_url_error"></label>
+                    <input type="text" class="form-control" id="long_url" placeholder="{{texts.placeholder}}"><br>
+                    <button type="submit" class="btn btn-primary" id="shortener_button">{{texts.shortener_button}}</button>
                 </div>
             </div>
 
@@ -46,7 +47,14 @@
             </div>
         </div>
         <hr>
-        
+        <div class="container-fluid">
+            <div class="page-footer">
+                <div class="text-center">
+                    <a href="/?clang=en">English</a>
+                    <a href="/?clang=ru">Русский</a>
+                </div>
+            </div>
+        </div>
     </body>
     
 </html>

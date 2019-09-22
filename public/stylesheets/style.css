@@ -7,6 +7,12 @@ a {
   color: #00B7FF;
 }
 
-.btn-primary{
+.btn-primary .btn-success{
   margin-top: 30px;
+}
+
+.block-button{
+  margin: 15px auto;
+  display: block;
+  text-align: center;
 }
