@@ -16,3 +16,14 @@ a {
   display: block;
   text-align: center;
 }
+
+.localization{
+  height: 20px;
+  width: 29px;
+  border: 1px solid #03030341;
+}
+
+.search{
+  margin-left: 2%;
+  margin-right: 2%;
+}

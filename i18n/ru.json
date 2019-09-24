@@ -5,5 +5,13 @@
     "shorten_another_button": "Укоротить еще ссылку",
     "shortener_button": "Укоротить",
     "placeholder": "Ссылка на укорачивание",
-    "copy": "Скопировать"
+    "copy": "Скопировать",
+    "sign_up": "Зарегистрироваться",
+    "sign_in": "Войти",
+    "search": "Поиск",
+    "references": "Ссылки",
+    "shorten": "Укоротить",
+    "language": "Язык",
+    "home": "Главная",
+    "navbar": "Навигация"
 }

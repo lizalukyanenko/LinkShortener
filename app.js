@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const hjs = require('hogan-express');
-const i18n = require("i18n-express")
+const i18n = require("i18n-express");
 
 mongoose.connect('mongodb://localhost:27017/LinkShortener');
 mongoose.promise = global.Promise;
@@ -18,6 +18,7 @@ fs.readdirSync(path.join(__dirname, '/models')).forEach((
 
 const index = require('./routes/index');
 const address = require('./routes/address');
+const user = require('./routes/user');
 
 var app = express();
 
@@ -39,6 +40,10 @@ app.use(i18n({
 
 app.use('/', index);
 app.use('/address', address);
+app.use('/user', user);
+
+//routes
+// app.get('/user', routes.user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

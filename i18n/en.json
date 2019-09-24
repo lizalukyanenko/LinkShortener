@@ -5,5 +5,13 @@
     "shorten_another_button": "Shorten another link",
     "shortener_button": "Shorten",
     "placeholder": "URL to shorten",
-    "copy": "Copy to clipboard"
+    "copy": "Copy to clipboard",
+    "sign_up": "SignUp",
+    "sign_in": "SignIn",
+    "search": "Search",
+    "references": "References",
+    "shorten": "Shorten",
+    "language": "Language",
+    "home": "Home",
+    "navbar": "Navbar"
 }

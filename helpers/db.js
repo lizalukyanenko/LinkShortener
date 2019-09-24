@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 const Address = mongoose.model('address');
+const User = mongoose.model('user');
+
+function findAuthirizedUser(login, password) {
+	return User.findOne({login: login, password: password});
+}
 
 function findAddress(address) {
 	return Address.findOne({original_url: address});
@@ -18,4 +23,5 @@ module.exports = {
 	findAddress,
 	findLongAddress,
 	saveAddress,
+	findAuthirizedUser
 };
