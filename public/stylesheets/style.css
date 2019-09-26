@@ -27,3 +27,13 @@ a {
   margin-left: 2%;
   margin-right: 2%;
 }
+
+.error{
+  border-color: #FF4040;
+  color: #FF4040;
+} 
+
+.success{
+  border-color: rgb(73, 252, 177);
+  color: rgb(70, 253, 146);
+} 

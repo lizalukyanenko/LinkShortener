@@ -8,7 +8,12 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const hjs = require('hogan-express');
 const i18n = require("i18n-express");
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
+const config = require('./config');
+
+//database
 mongoose.connect('mongodb://localhost:27017/LinkShortener');
 mongoose.promise = global.Promise;
 fs.readdirSync(path.join(__dirname, '/models')).forEach((
@@ -21,6 +26,18 @@ const address = require('./routes/address');
 const user = require('./routes/user');
 
 var app = express();
+
+//sessions
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
 
 // view engine setup
 app.engine('hjs', hjs);
@@ -43,7 +60,17 @@ app.use('/address', address);
 app.use('/user', user);
 
 //routes
-// app.get('/user', routes.user);
+app.get('/', (req, res) => {
+  const id = req.session.userId;
+  const login = req.session.userLogin;
+
+  res.render('index', {
+    user: {
+      id,
+      login
+    }
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

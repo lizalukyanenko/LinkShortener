@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             
-            <a class="navbar-brand" href="">{{texts.navbar}}</a>
+            <a class="navbar-brand" href=""><%= user.username %></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -51,15 +51,26 @@
                 
                 <input class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
                 
-                <div class="btn-group">
-                    <a class="btn btn-outline-light" href="/user/signin">{{texts.sign_in}}</a>
-                    <a class="btn btn-outline-light" href="/user/signup">{{texts.sign_up}}</a>
-                </div>
+                <% if(user.id && user.login) { %>
+                    <div class="btn-group">
+                        <a class="btn btn-outline-light" href="/user/signin">{{texts.sign_in}}</a>
+                        <a class="btn btn-outline-light" href="/user/signup">{{texts.sign_up}}</a>
+                    </div>
+                <% } else { %>
+                    <a class="btn btn-outline-light" href="/user/logout">{{texts.logout}}</a>
+                <% } %>
             </div>
         </nav>
-
         <main role="main" class="container">
-
+            <div class="booksBox">
+                <% for (var i = 0; i < addresses.length; i++) { %>
+                    <div class="book">
+                        <p class="title"> <%= addresses[i]["original_url"] %> </p>
+                        <p class="description"> <%= addresses[i]["short_url"] %> </p>
+                        <p class="author"> <%= addresses[i]["author"] %> </p>
+                    </div>
+                <% } %>
+            </div>
         </main>
     </body>
     

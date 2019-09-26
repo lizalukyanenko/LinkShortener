@@ -10,6 +10,10 @@ const addressSchema = new mongoose.Schema({
 	short_url: {
 		type: String,
 		reqired: true,
+	},
+	author: {
+		type: String,
+		reqired: true,
 	}
 }, {timestamps: true});
 

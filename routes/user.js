@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt-nodejs');
-const Joi = require('joi');
 const User = require('../models/user');
 
-// //POST is login
+// //POST login
 router.route('/signin')
   .get((req, res) => {
     res.render('signin')
@@ -13,7 +12,7 @@ router.route('/signin')
       const password = req.body.password;
 
       if(!login || !password) {
-        const fields = 0;
+        const fields = [];
         if (!login) fields.push('login');
         if (!password) fields.push('password');
 
@@ -23,7 +22,7 @@ router.route('/signin')
           fields
         });
       } else {
-        models.user,findOne({
+        User.findOne({
           login
         })
         .then(user => {
@@ -34,7 +33,7 @@ router.route('/signin')
               fields: ['login', 'password']
             });
           } else {
-            bcrypt.compare(password, user.password, function(err, res) {
+            bcrypt.compare(password, user.password, function(err, result) {
               if(!result) {
                 res.json({
                   ok: false,
@@ -42,7 +41,11 @@ router.route('/signin')
                   fields: ['login', 'password']
                 });
               } else {
-                
+                req.session.userId = user.id;
+                req.session.userLogin = user.login;
+                res.json({
+                  ok:true
+                })
               }
             });
           }
@@ -56,14 +59,6 @@ router.route('/signin')
         });
       }
 });
-//validation schema
- 
-// const userSchema = Joi.object().keys({
-//   email: Joi.string().email().required(),
-//   username: Joi.string().required(),
-//   password: Joi.string().regex(/^[a-zA-Z0-9]{6,30}$/).required(),
-//   confirmationPassword: Joi.any().valid(Joi.ref('password')).required()
-// })
 
 //POST register
 router.route('/signup')
@@ -71,71 +66,90 @@ router.route('/signup')
     res.render('signup')
   })
   .post(async (req, res, next) => {
-    console.log(req.body);
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const login = req.body.login;
+    const password = req.body.password;
+    const passwordConfirm = req.body.passwordConfirm;
+
+    if( !firstName || !lastName || !login || !password || !passwordConfirm) {
+      const fields = [];
+      if (!firstName) fields.push('firstName');
+      if (!lastName) fields.push('lastName');
+      if (!login) fields.push('login');
+      if (!password) fields.push('password');
+      if (!passwordConfirm) fields.push('passwordConfirm');
+      res.json({
+        ok: false,
+        error: 'Все поля должны быть заполнены',
+        fields
+      });
+    } else if (!/^[a-zA-Z0-9]+$/.test(login)) {
+      res.json({
+        ok: false,
+        error: 'Только латинские буквы и цифры',
+        fields: ['login']
+      });
+     } else if (password != passwordConfirm) {
+      res.json({
+        ok: false,
+        error: 'Пароли не совпадают',
+        fields: ['password', 'passwordConfirm']
+      });
+    } else if (password.length < 5) {
     res.json({
-      ok: true
-    })
+      ok: false,
+      error: 'Минимальная длина пароля 5 символов!',
+      fields: ['password']
+    });
+  }else {
+      User.findOne({
+        login
+      }).then(user => {
+        if (!user) {
+          const username = firstName + " " + lastName; 
+          bcrypt.hash(password, null, null, function(err, hash) {
+            User.create({
+              username,
+              login,
+              password: hash
+            }).then(user =>{
+              console.log(user);
+              req.session.userId = user.id;
+              req.session.userLogin = user.login;
+              res.json({
+                ok:true
+              });
+            }).catch(err => {
+              console.log(err);
+              res.json({
+                ok:false,
+                error: 'Ошибка, попробуйте позже'
+              });
+            });
+          });
+        } else {
+          res.json ({
+            ok: false,
+            error: 'Логин занят',
+            fields: ['login']
+          });
+        }
+      });
+      
+    }
   });
+ 
+// GET for logout
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
+  }
+});
 
-//     try {
-//       const result = Joi.validate(req.body, userSchema)
-//       if (result.error) {
-//         req.flash('error', 'Data entered is not valid. Please try again.')
-//         res.redirect('/users/signup')
-//         return
-//       }
- 
-//       const user = await User.findOne({ 'email': result.value.email })
-//       if (user) {
-//         req.flash('error', 'Email is already in use.')
-//         res.redirect('/users/signup')
-//         return
-//       }
- 
-//       const hash = await User.hashPassword(result.value.password)
- 
-//       delete result.value.confirmationPassword
-//       result.value.password = hash
- 
-//       const newUser = await new User(result.value)
-//       await newUser.save()
- 
-//       req.flash('success', 'Registration successfully, go ahead and login.')
-//       res.redirect('/users/signin')
- 
-//     } catch(error) {
-//       next(error)
-//     }
-//   })
-
-//   router.route('/signin')
-//   .get((req, res) => {
-//     res.render('signin')
-//   })
-//   .post(async (req, res, next) => {
-//     try {
-//       const result = Joi.validate(req.body, userSchema)
-//       if (result.error) {
-//         req.flash('error', 'Data entered is not valid. Please try again.')
-//         res.redirect('/users/signin')
-//         return
-//       }
- 
- 
-//       const hash = await User.hashPassword(result.value.password)
- 
-//       delete result.value.confirmationPassword
-//       result.value.password = hash
- 
-//       const newUser = await new User(result.value)
-//       await newUser.save()
- 
-//       req.flash('success', 'Registration successfully, go ahead and login.')
-//       res.redirect('/users/signin')
- 
-//     } catch(error) {
-//       next(error)
-//     }
-//   })
- 
-  module.exports = router
+module.exports = router
