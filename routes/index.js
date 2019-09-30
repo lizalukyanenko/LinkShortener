@@ -4,8 +4,14 @@ const db = require('../helpers/db');
 const User = require('../models/user');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  return res.render('index');
+router.get('/', async (req, res, next) => {
+	let findedUser;
+
+	if (req.session) {
+		findedUser = await User.findById(req.session.userId);
+	}
+
+  	return res.render('index', {user: findedUser});
 });
 
 /* GET to long url */

@@ -1,6 +1,6 @@
 {
     "title": "Shortener",
-    "subtitle": "Link Shortener",
+    "subtitle": "Shorten the link",
     "ready": "You link is ready",
     "shorten_another_button": "Shorten another link",
     "shortener_button": "Shorten",
@@ -13,5 +13,14 @@
     "shorten": "Shorten",
     "language": "Language",
     "home": "Home",
-    "navbar": "Navbar"
+    "navbar": "Navbar",
+    "message_login": "Login to your account",
+    "email": "Email address",
+    "password": "Password",
+    "remember_me": "Remember me",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "password_confirm": "Password confirm",
+    "message_create": "Create your account",
+    "logout": "Logout"
 }

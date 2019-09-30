@@ -18,20 +18,42 @@
     </head>
     
     <body class="text-center">
-        <form class="form-signin" id="signin">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="login" class="sr-only">Email address</label>
-            <input type="email" id="login" class="form-control" placeholder="Email address" required autofocus>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Password" required>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" id="signin_button" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
-        </form>
+        <div class="form-style-0">
+            <h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <a class="local" href="/user/signin/?clang=en">
+                                <img class="localization" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Flag_of_Great_Britain_%281707%E2%80%931800%29.svg/200px-Flag_of_Great_Britain_%281707%E2%80%931800%29.svg.png">
+                            </a>
+                            <a class="local" href="/user/signin/?clang=ru">
+                                <img class="localization" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png">
+                            </a>
+                        </div>
+                        <div class="col-sm-8">
+                            {{texts.message_login}}
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn btn-outline-light" href="/user/signup">{{texts.sign_up}}</a>
+                        </div>
+                    </div>
+                </div>                         
+            </h2>
+            
+            <form class="form-signin" id="signin">
+                <label for="login" class="sr-only">Email address</label>
+                <input type="email" id="login" class="form-control" placeholder="{{texts.email}}" required autofocus>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="{{texts.password}}" required>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> {{texts.remember_me}}
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" id="signin_button" type="submit">{{texts.sign_in}}</button>
+            </form>
+        </div>
+        
     </body>
     
 </html>

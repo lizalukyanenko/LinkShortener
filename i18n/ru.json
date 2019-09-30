@@ -1,6 +1,6 @@
 {
     "title": "Укорачиватель",
-    "subtitle": "Укорачиватель ссылок",
+    "subtitle": "Укоротить ссылку",
     "ready": "Ссылка готова!",
     "shorten_another_button": "Укоротить еще ссылку",
     "shortener_button": "Укоротить",
@@ -13,5 +13,14 @@
     "shorten": "Укоротить",
     "language": "Язык",
     "home": "Главная",
-    "navbar": "Навигация"
+    "navbar": "Навигация",
+    "message_login": "Вход в аккаунт",
+    "email": "Адрес электронной почты",
+    "password": "Пароль",
+    "remember_me": "Запомнить меня",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "password_confirm": "Подтверждение",
+    "message_create": "Создание аккаунта",
+    "logout": "Выход"
 }

@@ -8,7 +8,7 @@ function shortenerUrl(){
     var longUrl = $("#long_url").val();
     $("#shortener_button").addClass("disabled");
 
-    participantsRequest = $.post("address", {
+    participantsRequest = $.post("shorten", {
         long_url: longUrl,
     }, function(data, status) {
         $("#shortener_button").removeClass("disabled");
@@ -48,5 +48,4 @@ function copyToClipboard(element) {
     document.execCommand("copy");
     $temp.remove();
 }
-
 });

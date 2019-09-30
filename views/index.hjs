@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             
-            <a class="navbar-brand" href=""><%= user.username %></a>
+            <a class="navbar-brand" href="">{{user.username}}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,7 +34,12 @@
                         <a class="nav-link disabled" href="#">{{texts.references}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">{{texts.shorten}}</a>
+                        {{#user}}
+                            <a class="nav-link" href="/address/shorten">{{texts.shorten}}</a>
+                        {{/user}}
+                        {{^user}}
+                            <a class="nav-link disabled" href="/address/shorten">{{texts.shorten}}</a>
+                        {{/user}}
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{texts.language}}</a>
@@ -50,26 +55,32 @@
                 </ul>
                 
                 <input class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
-                
-                <% if(user.id && user.login) { %>
+    
+                {{^user}}
                     <div class="btn-group">
                         <a class="btn btn-outline-light" href="/user/signin">{{texts.sign_in}}</a>
                         <a class="btn btn-outline-light" href="/user/signup">{{texts.sign_up}}</a>
                     </div>
-                <% } else { %>
+                {{/user}}
+                {{#user}}
                     <a class="btn btn-outline-light" href="/user/logout">{{texts.logout}}</a>
-                <% } %>
+                {{/user}}
             </div>
         </nav>
         <main role="main" class="container">
-            <div class="booksBox">
-                <% for (var i = 0; i < addresses.length; i++) { %>
+            <div class="container text-center">
+                {{!-- 
+                    <p class="title"> <%= addresses[i]["original_url"] %> </p>
+                    <p class="description"> <%= addresses[i]["short_url"] %> </p>
+                    <p class="author"> <%= addresses[i]["author"] %> </p>
+                 --}}
+                {{!-- <% for (var i = 0; i < addresses.length; i++) { %>
                     <div class="book">
                         <p class="title"> <%= addresses[i]["original_url"] %> </p>
                         <p class="description"> <%= addresses[i]["short_url"] %> </p>
                         <p class="author"> <%= addresses[i]["author"] %> </p>
                     </div>
-                <% } %>
+                <% } %> --}}
             </div>
         </main>
     </body>

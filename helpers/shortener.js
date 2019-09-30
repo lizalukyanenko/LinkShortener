@@ -1,13 +1,14 @@
 const generator = require('./generator');
 const db = require('./db');
 
-async function shortener(address) {
+async function shortener(address, user) {
 	let dbAddress = await db.findAddress(address);
 	if (!dbAddress){
 		const shortUrl = await getShortUrl();
 		dbAddress = await db.saveAddress({
 			original_url: address,
 			short_url: shortUrl,
+			author: user,
 		});
 		return dbAddress.short_url;
 	}
