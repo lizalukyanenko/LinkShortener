@@ -58,8 +58,13 @@
                         </div>
                     </li>
                 </ul>
+                <div class="col d-flex justify-content-end align-items-center">
+                    <a class="text-muted" id="search_button" href="/search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+                    </a>
+                    <input id="search_input" class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
+                </div>
                 
-                <input id="search_input" class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
     
                 {{^user}}
                     <div class="btn-group">
@@ -88,7 +93,7 @@
                                     <a href="{{original_url}}">{{original_url}}</a>
                                 </td> 
                                 <td> 
-                                    <a href="{{short_url}}">{{short_url}}</a>
+                                    <a class="address" href="{{original_url}}">{{short_url}}</a>
                                 </td>
                                 <td>
                                     {{author}}
@@ -96,7 +101,12 @@
                             </tr>
                         {{/addresses}}
                     </tbody>
-                </table>            
+                </table>   
+            {{^addresses}}
+                <h3>
+                    <label class='form-control error'>{{texts.dont_ref}}</label>
+                </h3>
+            {{/addresses}}         
         </main>
     </body>
 </html>

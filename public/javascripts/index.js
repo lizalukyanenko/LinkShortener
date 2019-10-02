@@ -1,29 +1,47 @@
+
+    var addresses = document.getElementsByClassName('.address');
+        for(var i = 0; i < addresses.length; i++) {
+            addresses[i].onclick = function() {
+                for(var j = 0; j < clicks.length; j++){
+                    if (i == j) {
+                        clicks[j] ++;
+                        alert(clicks);
+                    }
+                }
+            };
+        }
+
 $(function(){
+    var clicks = document.getElementsByClassName('.address');
     $("#shortener_button").click(shortenerUrl);
     $("#reset_button").click(resetUI);
     $("#copy_button").click(copyResult);
-    $('#search_input').on('input', search);
+    $('#search_button').click(search);
 
-function search(e){
-    e.preventDefault();
-    var data = {
-        search_text: $('#search_input').val()
-    };
-
-    $.ajax({
-        type: 'GET',
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        url: '/'
-    }).done(function(data){
-        if(!data.ok) {
-            console.log("Ссылок не найдено");
-        }else{
-            var html2Addd = "<table class='table table-striped'><thead class='table-info'><tr><th>{{texts.original_url}}</th><th>{{texts.short_url}}</th><th>{{texts.author}}</th></tr></thead><tbody>{{#addresses}}<tr><td><a href='{{original_url}}'>{{original_url}}</a></td><td><a href='{{short_url}}'>{{short_url}}</a></td><td>{{author}}</td></tr>{{/addresses}}</tbody></table>"     
-            $('#table').prepend(html2Addd);
-        } 
+    // clear
+    $('input').on('focus', function() {
+        $('label.error').remove();
     });
-}
+    
+    function search(e){
+        e.preventDefault();
+        var data = {
+            search_text: $('#search_input').val()
+        };
+    
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            url: '/search'
+        }).done(function(data){
+            if(!data) {
+                console.log("Ссылок не найдено")
+            }else{
+                $('#table').html(data);
+            } 
+        });
+    }
 
 function shortenerUrl(){
     var longUrl = $("#long_url").val();

@@ -30,10 +30,10 @@
                                 <img class="localization" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png">
                             </a>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm">
                             {{texts.message_login}}
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm">
                             <a class="btn btn-outline-light" href="/user/signup">{{texts.sign_up}}</a>
                         </div>
                     </div>

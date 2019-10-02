@@ -84,10 +84,10 @@ router.route('/signup')
         error: 'Все поля должны быть заполнены',
         fields
       });
-    } else if (!/^[a-zA-Z0-9]+$/.test(login)) {
+    } else if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(login)) {
       res.json({
         ok: false,
-        error: 'Только латинские буквы и цифры',
+        error: 'Не верный email',
         fields: ['login']
       });
      } else if (password != passwordConfirm) {

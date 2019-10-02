@@ -19,7 +19,8 @@
     
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="/">{{user.username}}</a>
+            
+            <a class="navbar-brand" href="">{{user.username}}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,18 +31,28 @@
                         <a class="nav-link" href="/">{{texts.home}} <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/references/my_references">{{texts.references}}</a>
+                        {{^user}}
+                            <a class="nav-link disabled">{{texts.references}}</a>
+                        {{/user}}
+                        {{#user}}
+                            <a class="nav-link" href="/references/my_references">{{texts.references}}</a>
+                        {{/user}}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/address/shorten">{{texts.shorten}}</a>
+                        {{#user}}
+                            <a class="nav-link" href="/address/shorten">{{texts.shorten}}</a>
+                        {{/user}}
+                        {{^user}}
+                            <a class="nav-link disabled" href="/address/shorten">{{texts.shorten}}</a>
+                        {{/user}}
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{texts.language}}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="/references/my_references/?clang=en">
+                            <a class="dropdown-item" href="/search/?clang=en">
                                 <img class="localization" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Flag_of_Great_Britain_%281707%E2%80%931800%29.svg/200px-Flag_of_Great_Britain_%281707%E2%80%931800%29.svg.png">
                             </a>
-                            <a class="dropdown-item" href="/references/my_references/?clang=ru">
+                            <a class="dropdown-item" href="/search/?clang=ru">
                                 <img class="localization" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png">
                             </a>
                         </div>
@@ -49,7 +60,7 @@
                 </ul>
                 
                 <div class="col d-flex justify-content-end align-items-center">
-                    <a class="text-muted" id="search_button" href="../search">
+                    <a class="text-muted" id="search_button" href="./search">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
                     </a>
                     <input id="search_input" class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
@@ -66,33 +77,37 @@
                 {{/user}}
             </div>
         </nav>
-        <br>
-        <main role="main">
+        <main id="table" role="main"> <br>
+            
                 <table class="table table-striped">
                     <thead class="table-info">
                         <tr>
                             <th>{{texts.original_url}}</th>
                             <th>{{texts.short_url}}</th>
+                            <th>{{texts.author}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#my_addresses}}
+                        {{#addresses}}
                             <tr>                            
                                 <td>
                                     <a href="{{original_url}}">{{original_url}}</a>
                                 </td> 
                                 <td> 
-                                    <a href="{{original_url}}">{{short_url}}</a>
-                                </td>                         
+                                    <a class="address" href="{{original_url}}">{{short_url}}</a>
+                                </td>
+                                <td>
+                                    {{author}}
+                                </td>                            
                             </tr>
-                        {{/my_addresses}}
+                        {{/addresses}}
                     </tbody>
                 </table>   
-            {{^my_addresses}}
+            {{^addresses}}
                 <h3>
                     <label class='form-control error'>{{texts.dont_ref}}</label>
                 </h3>
-            {{/my_addresses}}         
+            {{/addresses}}
         </main>
     </body>
-</html>         
+</html>

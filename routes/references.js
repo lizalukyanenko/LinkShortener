@@ -17,6 +17,20 @@ router.get('/my_references', async (req, res, next) => {
 	}
 });
 
+router.post('/search', async (req, res) => {
+	let findedUser;
+	
+	let search_addresses = await Address.find({
+		original_url: {$regex: req.body.search_text},
+		author: findedUser.username
+	});
+
+	if (req.session) {
+		findedUser = await User.findById(req.session.userId);
+	}
+	res.render('search', {user: findedUser, addresses: search_addresses});
+});
+
 /* GET to long url */
 router.get('/:id', async(req, res, next) => {
 	const id = req.params.id;

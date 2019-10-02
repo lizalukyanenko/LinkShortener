@@ -9,11 +9,6 @@ router.get('/', async (req, res, next) => {
 	let findedUser;
 	let addresses = await Address.find();
 	if (req.session) {
-		// if(req.body.search_text){
-		// 	let my_addresses = await Address.find({
-		// 		original_url: ".*" + req.body.search_text + ".*"
-		// 	});
-		// }
 		findedUser = await User.findById(req.session.userId);
 	
 		return res.render('index', {
@@ -37,12 +32,17 @@ router.get('/:id', async(req, res, next) => {
 	res.end();
 });
 
-router.get('/', async (req, res) => {
-	let my_addresses = await Address.find({
-		original_url: req.body.search_text
+router.post('/search', async (req, res) => {
+	let findedUser;
+	
+	let search_addresses = await Address.find({
+		original_url: {$regex: req.body.search_text}
 	});
-	console.log(my_addresses);
-	res.render('index', {my_addresses});
+
+	if (req.session) {
+		findedUser = await User.findById(req.session.userId);
+	}
+	res.render('search', {user: findedUser, addresses: search_addresses});
 });
 
 module.exports = router;

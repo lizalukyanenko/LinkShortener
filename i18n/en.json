@@ -25,5 +25,7 @@
     "logout": "Logout",
     "original_url": "Original URL",
     "short_url": "Short URL",
-    "author": "Author"
+    "author": "Author",
+    "message_for_short": "The link is shortened automatically by randomly generating emoji",
+    "dont_ref": "No links found"
 }
