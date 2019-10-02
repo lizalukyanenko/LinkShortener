@@ -32,11 +32,11 @@ router.get('/:id', async(req, res, next) => {
 	res.end();
 });
 
-router.post('/search', async (req, res) => {
+router.get('/search/:data', async (req, res) => {
 	let findedUser;
-	
+	const search = req.params.data ? req.params.data : ''
 	let search_addresses = await Address.find({
-		original_url: {$regex: req.body.search_text}
+		original_url: {$regex: search}
 	});
 
 	if (req.session) {

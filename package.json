@@ -24,5 +24,10 @@
     "node-emoji": "^1.10.0",
     "passport": "^0.4.0",
     "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.1",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
   }
 }

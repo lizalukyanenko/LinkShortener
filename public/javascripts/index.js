@@ -11,12 +11,18 @@
             };
         }
 
+$(window).on('load', function(){ 
+    document.getElementById("search_input").value = localStorage.getItem("search");
+    localStorage.removeItem("search");
+});
+
 $(function(){
     var clicks = document.getElementsByClassName('.address');
     $("#shortener_button").click(shortenerUrl);
     $("#reset_button").click(resetUI);
     $("#copy_button").click(copyResult);
     $('#search_button').click(search);
+    $('')
 
     // clear
     $('input').on('focus', function() {
@@ -28,19 +34,9 @@ $(function(){
         var data = {
             search_text: $('#search_input').val()
         };
-    
-        $.ajax({
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            url: '/search'
-        }).done(function(data){
-            if(!data) {
-                console.log("Ссылок не найдено")
-            }else{
-                $('#table').html(data);
-            } 
-        });
+        const search = encodeURIComponent(data.search_text).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+        localStorage.setItem("search", `${search}`);
+        window.open(`/search/${search}`, "_self");
     }
 
 function shortenerUrl(){
