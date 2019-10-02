@@ -2,16 +2,37 @@ $(function(){
     $("#shortener_button").click(shortenerUrl);
     $("#reset_button").click(resetUI);
     $("#copy_button").click(copyResult);
+    $('#search_input').on('input', search);
 
+function search(e){
+    e.preventDefault();
+    var data = {
+        search_text: $('#search_input').val()
+    };
+
+    $.ajax({
+        type: 'GET',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: '/'
+    }).done(function(data){
+        if(!data.ok) {
+            console.log("Ссылок не найдено");
+        }else{
+            var html2Addd = "<table class='table table-striped'><thead class='table-info'><tr><th>{{texts.original_url}}</th><th>{{texts.short_url}}</th><th>{{texts.author}}</th></tr></thead><tbody>{{#addresses}}<tr><td><a href='{{original_url}}'>{{original_url}}</a></td><td><a href='{{short_url}}'>{{short_url}}</a></td><td>{{author}}</td></tr>{{/addresses}}</tbody></table>"     
+            $('#table').prepend(html2Addd);
+        } 
+    });
+}
 
 function shortenerUrl(){
     var longUrl = $("#long_url").val();
-    $("#shortener_button").addClass("disabled");
+    $("#shortener_button").addClass("d-none");
 
     participantsRequest = $.post("shorten", {
         long_url: longUrl,
     }, function(data, status) {
-        $("#shortener_button").removeClass("disabled");
+        $("#shortener_button").removeClass("d-none");
         if (status === "success") {
             if (data.error) {
                 $("#shortener_input").addClass("form-control-error");

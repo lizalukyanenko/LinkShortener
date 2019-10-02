@@ -9,7 +9,7 @@
     "sign_up": "Зарегистрироваться",
     "sign_in": "Войти",
     "search": "Поиск",
-    "references": "Ссылки",
+    "references": "Cсылки",
     "shorten": "Укоротить",
     "language": "Язык",
     "home": "Главная",
@@ -22,5 +22,8 @@
     "last_name": "Фамилия",
     "password_confirm": "Подтверждение",
     "message_create": "Создание аккаунта",
-    "logout": "Выход"
+    "logout": "Выход",
+    "original_url": "Оригинальная ссылка",
+    "short_url": "Укороченная ссылка",
+    "author": "Автор"
 }

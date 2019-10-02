@@ -8,7 +8,7 @@ async function shortener(address, user) {
 		dbAddress = await db.saveAddress({
 			original_url: address,
 			short_url: shortUrl,
-			author: user,
+			author: user.username,
 		});
 		return dbAddress.short_url;
 	}

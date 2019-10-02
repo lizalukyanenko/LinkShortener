@@ -4,15 +4,13 @@ const shortener = require('../helpers/shortener');
 const validUrl = require('valid-url');
 const db = require('../helpers/db');
 const User = require('../models/user');
+let findedUser;
 
 /* GET home page. */
 router.get('/shorten', async (req, res, next) => {
-	let findedUser;
-
 	if (req.session) {
 		findedUser = await User.findById(req.session.userId);
 	}
-
   	return res.render('shorten', {user: findedUser});
 });
 
@@ -20,19 +18,15 @@ router.get('/shorten', async (req, res, next) => {
 router.get('/:id', async(req, res, next) => {
 	const id = req.params.id;
 	const fullUrl = `https://I ❤️ 🍕.ws/${id}`;
-	const long = await db.findLongAddress(fullUrl)
-	const author = User.username;
+	const long = await db.findLongAddress(fullUrl);
 	if (!long) {
 		return next();
 	}
 	res.writeHead(301, {
-		Location: long.original_url,
-		Location: author.author,
+		Location: long.original_url
 	});
 	res.end();
 });
-
-/*Первое и второе как-то совместить, чтобы возвращало сессию и укорачиватель снова работал*/
 
 router.route('/shorten')
   .get((req, res) => {
@@ -45,7 +39,7 @@ router.route('/shorten')
 			error: "Please provide a valid url"
 		});
 	} else {
-		await shortener.shortener(longUrl, User)
+		await shortener.shortener(longUrl, findedUser)
 			.then(resultUrl => res.status(200).json({
 				success: true,
 				result: resultUrl

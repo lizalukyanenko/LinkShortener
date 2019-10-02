@@ -1,7 +1,7 @@
 {
     "title": "Shortener",
     "subtitle": "Shorten the link",
-    "ready": "You link is ready",
+    "ready": "You link is ready!",
     "shorten_another_button": "Shorten another link",
     "shortener_button": "Shorten",
     "placeholder": "URL to shorten",
@@ -22,5 +22,8 @@
     "last_name": "Last name",
     "password_confirm": "Password confirm",
     "message_create": "Create your account",
-    "logout": "Logout"
+    "logout": "Logout",
+    "original_url": "Original URL",
+    "short_url": "Short URL",
+    "author": "Author"
 }

@@ -14,8 +14,8 @@ function findLongAddress(short) {
 	return Address.findOne({short_url: short});
 }
 
-function saveAddress(address) {
-	const newAddress = new Address(address);
+function saveAddress(address, authot) {
+	const newAddress = new Address(address, authot);
 	return newAddress.save();
 }
 

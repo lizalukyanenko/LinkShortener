@@ -24,6 +24,7 @@ fs.readdirSync(path.join(__dirname, '/models')).forEach((
 const index = require('./routes/index');
 const address = require('./routes/address');
 const user = require('./routes/user');
+const references = require('./routes/references');
 
 var app = express();
 
@@ -58,6 +59,7 @@ app.use(i18n({
 app.use('/', index);
 app.use('/address', address);
 app.use('/user', user);
+app.use('/references', references);
 
 //routes
 app.get('/', (req, res) => {

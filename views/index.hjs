@@ -5,14 +5,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         
         <link rel="stylesheet" href="/stylesheets/style.css" />
 
-        <script src="/javascripts/index.js"></script>
+        <script defer src="/javascripts/index.js"></script>
 
         <title>{{texts.title}}</title>
     </head>
@@ -31,7 +31,12 @@
                         <a class="nav-link" href="/">{{texts.home}} <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">{{texts.references}}</a>
+                        {{^user}}
+                            <a class="nav-link disabled">{{texts.references}}</a>
+                        {{/user}}
+                        {{#user}}
+                            <a class="nav-link" href="/references/my_references">{{texts.references}}</a>
+                        {{/user}}
                     </li>
                     <li class="nav-item">
                         {{#user}}
@@ -54,7 +59,7 @@
                     </li>
                 </ul>
                 
-                <input class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
+                <input id="search_input" class="form-control form-control-dark w-100 search" type="text" placeholder="{{texts.search}}" aria-label="Search">
     
                 {{^user}}
                     <div class="btn-group">
@@ -67,22 +72,31 @@
                 {{/user}}
             </div>
         </nav>
-        <main role="main" class="container">
-            <div class="container text-center">
-                {{!-- 
-                    <p class="title"> <%= addresses[i]["original_url"] %> </p>
-                    <p class="description"> <%= addresses[i]["short_url"] %> </p>
-                    <p class="author"> <%= addresses[i]["author"] %> </p>
-                 --}}
-                {{!-- <% for (var i = 0; i < addresses.length; i++) { %>
-                    <div class="book">
-                        <p class="title"> <%= addresses[i]["original_url"] %> </p>
-                        <p class="description"> <%= addresses[i]["short_url"] %> </p>
-                        <p class="author"> <%= addresses[i]["author"] %> </p>
-                    </div>
-                <% } %> --}}
-            </div>
+        <main id="table" role="main"> <br>
+                <table class="table table-striped">
+                    <thead class="table-info">
+                        <tr>
+                            <th>{{texts.original_url}}</th>
+                            <th>{{texts.short_url}}</th>
+                            <th>{{texts.author}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#addresses}}
+                            <tr>                            
+                                <td>
+                                    <a href="{{original_url}}">{{original_url}}</a>
+                                </td> 
+                                <td> 
+                                    <a href="{{short_url}}">{{short_url}}</a>
+                                </td>
+                                <td>
+                                    {{author}}
+                                </td>                            
+                            </tr>
+                        {{/addresses}}
+                    </tbody>
+                </table>            
         </main>
     </body>
-    
 </html>
